@@ -25,6 +25,10 @@
 /// The currently active SPViewController.
 + (SPViewController *)currentController;
 
+/// Set the currently active SPViewController. Set to 'nil' when you want to release
+/// the current controller (e.g. to shut down Sparrow completely).
++ (void)setCurrentController:(SPViewController *)controller;
+
 /// A juggler that is advanced once per frame by the current view controller.
 + (SPJuggler *)juggler;
 

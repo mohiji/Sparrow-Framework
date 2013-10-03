@@ -158,7 +158,7 @@
     [vertexData appendVertex:vertex];
     [vertexData scaleAlphaBy:0.5f];
     
-    SPVertex expectedVertex;
+    SPVertex expectedVertex = [self defaultVertex];
     expectedVertex.color = SPVertexColorMake(80, 60, 40, 64);
     
     [self compareVertex:expectedVertex withVertex:vertexData.vertices[0]];
@@ -174,7 +174,7 @@
     [vertexData appendVertex:vertex];
     [vertexData scaleAlphaBy:0.8f]; // factor = 4/5
     
-    SPVertex expectedVertex;
+    SPVertex expectedVertex = [self defaultVertex];
     expectedVertex.color = SPVertexColorMake(80 * 0.64f, 60 * 0.64f, 40 * 0.64f, 204 * 0.8f);
     
     [self compareVertex:expectedVertex withVertex:vertexData.vertices[0]];

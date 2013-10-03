@@ -140,7 +140,7 @@
     {
         glGetActiveUniform(_name, i, MAX_NAME_LENGTH, NULL, NULL, NULL, rawName);
         NSString *name = [[NSString alloc] initWithCString:rawName encoding:NSUTF8StringEncoding];
-        _uniforms[name] = @(i);
+        _uniforms[name] = @(glGetUniformLocation(_name, rawName));
     }
 }
 
@@ -158,7 +158,7 @@
     {
         glGetActiveAttrib(_name, i, MAX_NAME_LENGTH, NULL, NULL, NULL, rawName);
         NSString *name = [[NSString alloc] initWithCString:rawName encoding:NSUTF8StringEncoding];
-        _attributes[name] = @(i);
+        _attributes[name] = @(glGetAttribLocation(_name, rawName));
     }
 }
 

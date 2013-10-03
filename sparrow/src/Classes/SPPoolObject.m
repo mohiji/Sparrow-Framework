@@ -11,6 +11,7 @@
 
 #import "SPPoolObject.h"
 #import <malloc/malloc.h>
+#import <objc/runtime.h>
 
 #define COMPLAIN_MISSING_IMP @"Class %@ needs this code:\nSP_IMPLEMENT_MEMORY_POOL();" 
 
@@ -44,7 +45,7 @@
         poolInfo->lastElement = object->_poolPredecessor;
         
         // zero out memory. (do not overwrite isa & _poolPredecessor, thus the offset)
-        static uint offset = sizeof(Class) + sizeof(SPPoolObject *);
+        static size_t offset = sizeof(Class) + sizeof(SPPoolObject *);
         memset((char *)(id)object + offset, 0, malloc_size(object) - offset);
         object->_retainCount = 1;
         return object;
@@ -70,7 +71,7 @@
     }
 }
 
-- (uint)retainCount
+- (NSUInteger)retainCount
 {
     return _retainCount;
 }
@@ -87,7 +88,7 @@
     
     if (!_retainCount)
     {
-        SPPoolInfo *poolInfo = [isa poolInfo];
+        SPPoolInfo *poolInfo = [object_getClass(self) poolInfo];
         self->_poolPredecessor = poolInfo->lastElement;
         poolInfo->lastElement = self;
     }

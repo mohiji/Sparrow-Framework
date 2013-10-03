@@ -119,7 +119,7 @@
     _started = NO;
     _startButton.visible = YES;
     
-    int frameRate = Sparrow.currentController.framesPerSecond;
+    int frameRate = (int)Sparrow.currentController.framesPerSecond;
     
     NSLog(@"benchmark complete!");
     NSLog(@"fps: %d", frameRate);

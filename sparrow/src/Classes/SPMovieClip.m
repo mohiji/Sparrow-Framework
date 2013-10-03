@@ -165,7 +165,7 @@
 
 - (int)numFrames
 {        
-    return _textures.count;
+    return (int)_textures.count;
 }
 
 - (void)play

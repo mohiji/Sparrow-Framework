@@ -57,6 +57,7 @@
     NSData *data = [NSData dataWithUncompressedContentsOfFile:fullPath];
     NSDictionary *options = [SPTexture optionsForPath:path mipmaps:mipmaps pma:pma];
     
+    [SPTexture checkForOpenGLError];
     GLKTextureInfo *info = [GLKTextureLoader textureWithContentsOfData:data
                                                                options:options error:&error];
     
@@ -257,19 +258,23 @@
 
 + (NSDictionary *)optionsForPath:(NSString *)path mipmaps:(BOOL)mipmaps pma:(BOOL)pma
 {
-    // This is a workaround for a nasty bug in the iOS 6 simulators :|
+    // This is a workaround for a nasty inconsistency between different iOS versions :|
     
+    NSString *osVersion = [[UIDevice currentDevice] systemVersion];
     NSDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                              @(mipmaps), GLKTextureLoaderGenerateMipmaps, nil];
     
     #if TARGET_IPHONE_SIMULATOR
-    NSString *osVersion = [[UIDevice currentDevice] systemVersion];
-    if ([osVersion isEqualToString:@"6.0"] || [osVersion isEqualToString:@"6.1"])
+    BOOL applyPma = [osVersion compare:@"5.9"] == NSOrderedDescending;
+    #else
+    BOOL applyPma = [osVersion compare:@"6.9"] == NSOrderedDescending;
+    #endif
+    
+    if (applyPma)
     {
         BOOL usePma = pma && [self expectedPmaValueForFile:path];
         [options setValue:@(usePma) forKey:GLKTextureLoaderApplyPremultiplication];
     }
-    #endif
     
     return options;
 }
@@ -308,6 +313,16 @@
     else return NO;
 }
 
++ (void)checkForOpenGLError
+{
+    // GLKTextureLoader always fails if 'glGetError()' is not clean -- even though the error
+    // actually happened somewhere else. So we better remove any pending error.
+    
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+        NSLog(@"Texture loading was initiated while OpenGL error flag was set to: 0x%x", error);
+}
+
 #pragma mark - Asynchronous Texture Loading
 
 + (void)loadFromFile:(NSString *)path onComplete:(SPTextureLoadingBlock)callback
@@ -338,6 +353,7 @@
     NSDictionary *options = [SPTexture optionsForPath:path mipmaps:mipmaps pma:pma];
     GLKTextureLoader *loader = Sparrow.currentController.textureLoader;
 
+    [self checkForOpenGLError];
     [loader textureWithContentsOfFile:fullPath options:options queue:NULL
                     completionHandler:^(GLKTextureInfo *info, NSError *outError)
      {
@@ -373,6 +389,7 @@
     NSDictionary *options = @{ GLKTextureLoaderGenerateMipmaps: @(mipmaps) };
     GLKTextureLoader *loader = Sparrow.currentController.textureLoader;
     
+    [self checkForOpenGLError];
     [loader textureWithContentsOfURL:url options:options queue:NULL
                    completionHandler:^(GLKTextureInfo *info, NSError *outError)
      {

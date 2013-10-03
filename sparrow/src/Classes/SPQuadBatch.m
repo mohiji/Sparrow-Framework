@@ -418,7 +418,7 @@
     if (isRootObject)
     {
         // remove unused batches
-        for (int i=quadBatches.count-1; i>quadBatchID; --i)
+        for (int i=(int)quadBatches.count-1; i>quadBatchID; --i)
             [quadBatches removeLastObject];
     }
     

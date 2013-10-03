@@ -67,8 +67,7 @@ static NSMutableDictionary *bitmapFonts = nil;
         _hAlign = SPHAlignCenter;
         _vAlign = SPVAlignCenter;
         _autoScale = NO;
-        _border = NO;        
-		_kerning = YES;
+        _kerning = YES;
         _requiresRedraw = YES;
         self.fontName = name;
         
@@ -350,7 +349,7 @@ static NSMutableDictionary *bitmapFonts = nil;
           
           [_text drawInRect:CGRectMake(0, yOffset, width, height)
                    withFont:[UIFont fontWithName:_fontName size:fontSize] 
-              lineBreakMode:lbm alignment:(UITextAlignment)_hAlign];
+              lineBreakMode:lbm alignment:(NSTextAlignment)_hAlign];
       }];
     
     SPImage *image = [[SPImage alloc] initWithTexture:texture];

@@ -94,7 +94,7 @@ NSString *getProgramName(BOOL hasTexture, BOOL useTinting)
     GLKMatrix4 glkMvpMatrix = [_mvpMatrix convertToGLKMatrix4];
     
     glUseProgram(_program.name);
-    glUniformMatrix4fv(_uMvpMatrix, 1, 0, glkMvpMatrix.m);
+    glUniformMatrix4fv(_uMvpMatrix, 1, NO, glkMvpMatrix.m);
     
     if (useTinting)
     {

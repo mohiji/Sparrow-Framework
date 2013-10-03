@@ -102,8 +102,8 @@
     STAssertNotNil(absolutePath1x, @"resource not found (1x)");
     STAssertNotNil(absolutePath2x, @"resource not found (2x)");
     
-    uint suffixLoc = [absolutePath2x rangeOfString:@"@2x.pvr"].location;
-    STAssertEquals(suffixLoc, absolutePath2x.length - 7, @"did not find correct resource (2x)");
+    NSUInteger suffixLoc = [absolutePath2x rangeOfString:@"@2x.pvr"].location;
+    STAssertEquals((int)suffixLoc, (int)absolutePath2x.length - 7, @"did not find correct resource (2x)");
     
     NSString *nonexistingPath = [SPUtils absolutePathToFile:@"does_not_exist.foo"];
     STAssertNil(nonexistingPath, @"found non-existing file");

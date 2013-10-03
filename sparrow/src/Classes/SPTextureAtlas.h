@@ -80,6 +80,12 @@
 /// Retrieve a subtexture by name. Returns `nil` if it is not found.
 - (SPTexture *)textureByName:(NSString *)name;
 
+/// The region rectangle associated with a specific name.
+- (SPRectangle *)regionByName:(NSString *)name;
+
+/// The frame rectangle of a specific region, or `nil` if that region has no frame.
+- (SPRectangle *)frameByName:(NSString *)name;
+
 /// Returns all textures that start with a certain string, sorted alphabetically
 /// (especially useful for `SPMovieClip`).
 - (NSArray *)texturesStartingWith:(NSString *)prefix;
@@ -108,5 +114,8 @@
 
 /// All textures of the atlas, sorted alphabetically.
 @property (nonatomic, readonly) NSArray *textures;
+
+/// The base texture that makes up the atlas.
+@property (nonatomic, readonly) SPTexture *texture;
 
 @end

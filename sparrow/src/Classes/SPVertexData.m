@@ -39,23 +39,23 @@ SPVertexColor SPVertexColorMakeWithColorAndAlpha(uint rgb, float alpha)
 SPVertexColor premultiplyAlpha(SPVertexColor color)
 {
     float alpha = color.a / 255.0f;
-    return SPVertexColorMake(color.r * alpha,
-                             color.g * alpha,
-                             color.b * alpha,
-                             color.a);
+    
+    if (alpha == 1.0f) return color;
+    else return SPVertexColorMake(color.r * alpha,
+                                  color.g * alpha,
+                                  color.b * alpha,
+                                  color.a);
 }
 
 SPVertexColor unmultiplyAlpha(SPVertexColor color)
 {
     float alpha = color.a / 255.0f;
-    
-    if (alpha != 0.0f)
-        return SPVertexColorMake(color.r / alpha,
-                                 color.g / alpha,
-                                 color.b / alpha,
-                                 color.a);
-    else
-        return color;
+
+    if (alpha == 0.0f || alpha == 1.0f) return color;
+    else return SPVertexColorMake(color.r / alpha,
+                                  color.g / alpha,
+                                  color.b / alpha,
+                                  color.a);
 }
 
 BOOL isOpaqueWhite(SPVertexColor color)

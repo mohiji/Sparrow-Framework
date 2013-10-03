@@ -304,7 +304,7 @@ SP_IMPLEMENT_MEMORY_POOL();
         {
             int lastWhiteSpace = -1;
             int lastCharID = -1;
-            int numChars = text.length;
+            int numChars = (int)text.length;
             float currentX = 0;
             float currentY = 0;
             NSMutableArray *currentLine = [NSMutableArray array];
@@ -343,7 +343,7 @@ SP_IMPLEMENT_MEMORY_POOL();
                     {
                         // remove characters and add them again to next line
                         int numCharsToRemove = lastWhiteSpace == -1 ? 1 : i - lastWhiteSpace;
-                        int removeIndex = currentLine.count - numCharsToRemove;
+                        int removeIndex = (int)currentLine.count - numCharsToRemove;
                         
                         [currentLine removeObjectsInRange:NSMakeRange(removeIndex, numCharsToRemove)];
                         
@@ -395,7 +395,7 @@ SP_IMPLEMENT_MEMORY_POOL();
     } // while (!finished)
     
     NSMutableArray *finalLocations = [NSMutableArray array];
-    int numLines = lines.count;
+    int numLines = (int)lines.count;
     float bottom = numLines * _lineHeight;
     int yOffset = 0;
     
@@ -404,7 +404,7 @@ SP_IMPLEMENT_MEMORY_POOL();
     
     for (NSArray *line in lines)
     {
-        int numChars = line.count;
+        int numChars = (int)line.count;
         if (!numChars) continue;
         
         int xOffset = 0;

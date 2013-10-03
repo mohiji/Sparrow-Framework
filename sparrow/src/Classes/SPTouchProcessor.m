@@ -63,10 +63,7 @@
             if (existingTouch.phase == SPTouchPhaseEnded || existingTouch.phase == SPTouchPhaseCancelled)
                 continue;
             
-            if ((existingTouch.globalX == touch.previousGlobalX &&
-                 existingTouch.globalY == touch.previousGlobalY) ||
-                (existingTouch.globalX == touch.globalX &&
-                 existingTouch.globalY == touch.globalY))
+            if (existingTouch.nativeTouch == touch.nativeTouch)
             {
                 // existing touch; update values
                 existingTouch.timestamp = touch.timestamp;
@@ -89,19 +86,11 @@
             }
         }
         
-        if (!currentTouch)
+        if (!currentTouch) // new touch
         {
-            // new touch!
-            currentTouch = [SPTouch touch];
-            currentTouch.timestamp = touch.timestamp;
-            currentTouch.globalX = touch.globalX;
-            currentTouch.globalY = touch.globalY;
-            currentTouch.previousGlobalX = touch.previousGlobalX;
-            currentTouch.previousGlobalY = touch.previousGlobalY;
-            currentTouch.phase = touch.phase;
-            currentTouch.tapCount = touch.tapCount;
             SPPoint *touchPosition = [SPPoint pointWithX:touch.globalX y:touch.globalY];
-            currentTouch.target = [_root hitTestPoint:touchPosition];
+            touch.target = [_root hitTestPoint:touchPosition];
+            currentTouch = touch;
         }
         
         [processedTouches addObject:currentTouch];

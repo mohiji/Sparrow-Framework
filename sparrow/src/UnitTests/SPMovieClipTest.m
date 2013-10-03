@@ -194,7 +194,7 @@
     
     NSArray *frames = @[[[SPTexture alloc] init], [[SPTexture alloc] init],
                         [[SPTexture alloc] init], [[SPTexture alloc] init]];
-    int numFrames = frames.count;
+    NSInteger numFrames = frames.count;
     
     SPMovieClip *movie = [SPMovieClip movieWithFrames:frames fps:fps];    
     [movie addEventListener:@selector(onMovieCompleted:) atObject:self 

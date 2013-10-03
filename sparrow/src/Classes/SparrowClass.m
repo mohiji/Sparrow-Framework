@@ -11,7 +11,7 @@
 
 #import "SparrowClass.h"
 
-static SPViewController *controller = nil;
+static __weak SPViewController *controller = nil;
 
 @implementation Sparrow
 

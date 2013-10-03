@@ -12,7 +12,7 @@
 #import "SPViewController.h"
 #import "SPTouchProcessor.h"
 #import "SPRenderSupport.h"
-#import "SparrowClass_Internal.h"
+#import "SparrowClass.h"
 #import "SPTouch_Internal.h"
 #import "SPEnterFrameEvent.h"
 #import "SPResizeEvent.h"
@@ -113,20 +113,25 @@
     [self glkView].context = _context;
 }
 
-- (void)viewDidUnload
+- (void)didReceiveMemoryWarning
 {
-    _context = nil;
-    [EAGLContext setCurrentContext:nil];
+    [self purgePools];
+    [_support purgeBuffers];
+    [super didReceiveMemoryWarning];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)dealloc
+{
+    [self purgePools];
+    [EAGLContext setCurrentContext:nil];
+    [Sparrow setCurrentController:nil];
+}
+
+- (void)purgePools
 {
     [SPPoint purgePool];
     [SPRectangle purgePool];
     [SPMatrix purgePool];
-    [_support purgeBuffers];
-    
-    [super didReceiveMemoryWarning];
 }
 
 - (void)startWithRoot:(Class)rootClass
@@ -262,7 +267,7 @@
     return self.view.multipleTouchEnabled;
 }
 
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self processTouchEvent:event];
 }
@@ -308,6 +313,7 @@
                 touch.previousGlobalY = previousLocation.y * yConversion;
                 touch.tapCount = uiTouch.tapCount;
                 touch.phase = (SPTouchPhase)uiTouch.phase;
+                touch.nativeTouch = uiTouch;
                 [touches addObject:touch];
             }
             [_touchProcessor processTouches:touches];

@@ -37,6 +37,8 @@
     NSMutableDictionary *_textureFrames;
 }
 
+@synthesize texture=_atlasTexture;
+
 - (id)initWithContentsOfFile:(NSString *)path texture:(SPTexture *)texture
 {
     if ((self = [super init]))
@@ -115,7 +117,7 @@
 
 - (int)numTextures
 {
-    return [_textureRegions count];
+    return (int)[_textureRegions count];
 }
 
 - (SPTexture *)textureByName:(NSString *)name
@@ -125,6 +127,16 @@
     
     if (region) return [[SPTexture alloc] initWithRegion:region frame:frame ofTexture:_atlasTexture];
     else        return nil;
+}
+
+- (SPRectangle *)regionByName:(NSString *)name
+{
+    return _textureRegions[name];
+}
+
+- (SPRectangle *)frameByName:(NSString *)name
+{
+    return _textureFrames[name];
 }
 
 - (NSArray *)textures
