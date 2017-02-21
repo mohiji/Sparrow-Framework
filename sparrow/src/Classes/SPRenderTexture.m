@@ -11,7 +11,6 @@
 
 #import "SparrowClass.h"
 #import "SPBlendMode.h"
-#import "SPContext.h"
 #import "SPGLTexture.h"
 #import "SPFragmentFilter.h"
 #import "SPMacros.h"

@@ -11,7 +11,6 @@
 
 #import "SparrowClass.h"
 #import "SPCanvas.h"
-#import "SPContext.h"
 #import "SPIndexData.h"
 #import "SPMatrix.h"
 #import "SPMatrix3D.h"
@@ -21,7 +20,6 @@
 #import "SPProgram.h"
 #import "SPRenderSupport.h"
 #import "SPVertexData.h"
-#import "SPViewController.h"
 
 #define PROGRAM_NAME @"Shape"
 

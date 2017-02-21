@@ -54,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// If you pass a relative path, the resource folder of the application bundle will be searched.
 + (BOOL)fileExistsAtPath:(NSString *)path;
 
+#if TARGET_OS_IPHONE
 /// Finds the full path for a file, favoring those with the given scale factor and
 /// device idiom. Relative paths are searched in the application bundle. If no suitable file can
 /// be found, the method returns nil. Use the bundle parameter to specify a specific bundle.
@@ -65,6 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// be found, the method returns nil. Will use the 'defaultBundle'.
 + (nullable NSString *)absolutePathToFile:(NSString *)path withScaleFactor:(float)factor
                                     idiom:(UIUserInterfaceIdiom)idiom;
+#endif
 
 /// Finds the full path for a file, favoring those with the given scale factor and the current
 /// device idiom. Relative paths are searched in the application bundle. If no suitable file can

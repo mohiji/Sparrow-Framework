@@ -92,6 +92,7 @@ static NSBundle *defaultBundle = nil;
     return stat([path UTF8String], &buffer) == 0;
 }
 
+#if TARGET_OS_IPHONE
 + (nullable NSString *)absolutePathToFile:(NSString *)path withScaleFactor:(float)factor
                                     idiom:(UIUserInterfaceIdiom)idiom bundle:(NSBundle *)bundle
 {
@@ -136,5 +137,6 @@ static NSBundle *defaultBundle = nil;
 {
     return [SPUtils absolutePathToFile:path withScaleFactor:Sparrow.contentScaleFactor];
 }
+#endif
 
 @end

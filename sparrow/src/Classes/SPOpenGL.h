@@ -12,9 +12,13 @@
 #import <Sparrow/SparrowBase.h>
 #import <Sparrow/SPMacros.h>
 
-#import <OpenGLES/ES2/glext.h>
-#import <OpenGLES/ES3/gl.h>
-#import <OpenGLES/ES3/glext.h>
+#if TARGET_OS_IPHONE
+    #import <OpenGLES/ES2/glext.h>
+    #import <OpenGLES/ES3/gl.h>
+    #import <OpenGLES/ES3/glext.h>
+#else
+    #import <OpenGL/gl3.h>
+#endif
 
 // -----------------------------------------------------------
 // EXPERIMENTAL FEATURE: Activate the OpenGL state cache here!
@@ -62,7 +66,7 @@ SP_EXTERN const char* sglGetErrorString(uint error);
 
 #define SP_FORCE_DEBUG_MARKERS 0
 
-#if DEBUG || SP_FORCE_DEBUG_MARKERS
+#if TARGET_OS_IPHONE && (DEBUG || SP_FORCE_DEBUG_MARKERS)
     #define SPPushDebugMarker(s) \
         glPushGroupMarkerEXT(0, s)
 

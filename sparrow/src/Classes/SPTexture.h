@@ -147,6 +147,7 @@ typedef void (^SPTextureLoadingBlock)(SPTexture *__nullable texture, NSError *__
 /// uncompressed automatically.
 - (instancetype)initWithContentsOfFile:(NSString *)path generateMipmaps:(BOOL)mipmaps;
 
+#if TARGET_OS_IPHONE
 /// Initializes a texture with the contents of a UIImage; no mip maps will be created. The texture
 /// will have the same scale factor as the image.
 - (instancetype)initWithContentsOfImage:(UIImage *)image;
@@ -154,6 +155,7 @@ typedef void (^SPTextureLoadingBlock)(SPTexture *__nullable texture, NSError *__
 /// Initializes a texture with the contents of a UIImage. The texture will have the same scale
 /// factor as the image.
 - (instancetype)initWithContentsOfImage:(UIImage *)image generateMipmaps:(BOOL)mipmaps;
+#endif
 
 /// Initializes a texture with a region (in points) of another texture. The new texture will
 /// reference the base texture; no data is duplicated.

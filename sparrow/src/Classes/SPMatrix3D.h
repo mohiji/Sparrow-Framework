@@ -153,7 +153,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern const matrix_float4x4 matrix_identity_float4x4;
 #endif
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 90000
+#if TARGETOS_IPHONE && __IPHONE_OS_VERSION_MAX_ALLOWED < 90000
 static _Bool __SIMD_ATTRIBUTES__ matrix_almost_equal_elements(matrix_float4x4 __x, matrix_float4x4 __y, float __tol)
 {
     return vector_all((__tg_fabs(__x.columns[0] - __y.columns[0]) <= __tol) &

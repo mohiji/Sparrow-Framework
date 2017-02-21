@@ -11,7 +11,6 @@
 
 #import "SPBaseEffect.h"
 #import "SPBlendMode.h"
-#import "SPContext.h"
 #import "SPDisplayObjectContainer.h"
 #import "SPImage.h"
 #import "SPMacros.h"

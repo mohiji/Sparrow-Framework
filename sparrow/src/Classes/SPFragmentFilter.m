@@ -11,7 +11,6 @@
 
 #import "SparrowClass.h"
 #import "SPBlendMode.h"
-#import "SPContext.h"
 #import "SPDisplayObject.h"
 #import "SPImage.h"
 #import "SPMatrix.h"

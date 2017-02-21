@@ -12,7 +12,9 @@
 #import <Sparrow/SparrowBase.h>
 #import <Sparrow/SPMacros.h>
 
-#import <AVFoundation/AVAudioSession.h>
+#if TARGET_OS_IPHONE
+    #import <AVFoundation/AVAudioSession.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -55,6 +57,7 @@ typedef NS_ENUM(UInt32, SPAudioSessionCategory) {
 /// @name Methods
 /// -------------
 
+#if TARGET_OS_IPHONE
 /// Starts an audio session with a specified `AVAudioSession` category.  Call this at the start of
 /// your application.
 ///
@@ -63,6 +66,7 @@ typedef NS_ENUM(UInt32, SPAudioSessionCategory) {
 
 /// Deprectated, use `startWithCategory:` instead.
 + (void)start:(SPAudioSessionCategory)category SP_DEPRECATED;
+#endif
 
 /// Starts an audio session with with the category 'AVAudioSessionCategorySoloAmbient'.
 + (void)start;
